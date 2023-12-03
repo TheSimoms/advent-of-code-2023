@@ -21,7 +21,8 @@ class Task(metaclass=ABCMeta):
 
     @staticmethod
     def _read_input(args) -> list[str]:
-        filename = f'{args.task}-test' if args.test else str(args.task)
+        task_number = str(args.task).rjust(2, '0')
+        filename = f'{task_number}-test' if args.test else task_number
 
         with open(f'data/{filename}.txt', 'r') as file:
             return [line.strip() for line in file if line]
