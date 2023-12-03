@@ -2,10 +2,12 @@ import argparse
 
 from task_01 import Task1
 from task_02 import Task2
+from task_03 import Task3
 
 TASKS = [
     Task1(),
     Task2(),
+    Task3(),
 ]
 
 if __name__ == '__main__':
