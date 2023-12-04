@@ -4,6 +4,8 @@ from task import Task
 
 
 class Task01(Task):
+    REGEX_ONE = re.compile(r'[0-9]')
+    REGEX_TWO = re.compile(r'(?=([0-9]|one|two|three|four|five|six|seven|eight|nine))')
     NUMBERS = {
         'one': 1,
         'two': 2,
@@ -16,8 +18,6 @@ class Task01(Task):
         'nine': 9,
     }
 
-    REGEX = re.compile(r'[0-9]')
-
     def part_one(self) -> int:
         digits = [self._find_digits(line) for line in self.data]
 
@@ -29,24 +29,10 @@ class Task01(Task):
         return self._sum_lines(digits_and_numbers)
 
     def _find_digits(self, line: str) -> list[int]:
-        return [int(number) for number in self.REGEX.findall(line)]
+        return [int(number) for number in self.REGEX_ONE.findall(line)]
 
     def _find_digits_and_numbers(self, line: str) -> list[int]:
-        res = []
-
-        for i in range(len(line)):
-            if line[i].isdigit():
-                res.append(int(line[i]))
-            else:
-                substring = line[i:]
-
-                for number, digit in self.NUMBERS.items():
-                    if substring.startswith(number):
-                        res.append(digit)
-
-                        break
-
-        return res
+        return [int(number) if number.isdigit() else self.NUMBERS[number] for number in self.REGEX_TWO.findall(line)]
 
     @staticmethod
     def _sum_lines(lines: list[list[int]]) -> int:
