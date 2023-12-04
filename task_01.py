@@ -3,7 +3,7 @@ import re
 from task import Task
 
 
-class Task1(Task):
+class Task01(Task):
     NUMBERS = {
         'one': 1,
         'two': 2,

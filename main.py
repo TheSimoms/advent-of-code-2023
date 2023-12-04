@@ -1,13 +1,15 @@
 import argparse
 
-from task_01 import Task1
-from task_02 import Task2
-from task_03 import Task3
+from task_01 import Task01
+from task_02 import Task02
+from task_03 import Task03
+from task_04 import Task04
 
 TASKS = [
-    Task1(),
-    Task2(),
-    Task3(),
+    Task01(),
+    Task02(),
+    Task03(),
+    Task04(),
 ]
 
 if __name__ == '__main__':

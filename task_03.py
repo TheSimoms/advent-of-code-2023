@@ -84,7 +84,7 @@ class Engine:
         self.layout[y][x] = element
 
 
-class Task3(Task):
+class Task03(Task):
     def part_one(self) -> int:
         engine = self.parse_engine()
         parts: set[Number] = set()

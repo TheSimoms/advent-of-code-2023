@@ -34,7 +34,7 @@ class Game:
         return True
 
 
-class Task2(Task):
+class Task02(Task):
     def part_one(self) -> int:
         blue = 14
         green = 13
