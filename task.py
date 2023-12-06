@@ -8,7 +8,7 @@ class Task(metaclass=ABCMeta):
 
     def run(self, args):
         self.input = self._read_input(args)
-        self.data = [line.strip() for line in self.input if line]
+        self.data = [line.strip() for line in self.input.split('\n') if line]
 
         print(f'Part one: {self.part_one()}')
         print(f'Part two: {self.part_two()}')
