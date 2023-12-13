@@ -12,6 +12,7 @@ from task_09 import Task09
 from task_10 import Task10
 from task_11 import Task11
 from task_12 import Task12
+from task_13 import Task13
 
 TASKS = [
     Task01(),
@@ -26,6 +27,7 @@ TASKS = [
     Task10(),
     Task11(),
     Task12(),
+    Task13(),
 ]
 
 if __name__ == '__main__':
