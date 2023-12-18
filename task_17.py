@@ -1,22 +1,16 @@
 import heapq
 from collections import namedtuple
-from enum import Enum
 from typing import Callable
 
 from task import Task
+from util import Position, Direction
 
-Position = namedtuple('Position', ['x', 'y'])
+
 Step = namedtuple('Step', ['x', 'y', 'direction', 'direction_repeats'])
 
 
-class Direction(Enum):
-    RIGHT = (1, 0)
-    LEFT = (-1, 0)
-    DOWN = (0, 1)
-    UP = (0, -1)
-
-
 class Tile:
+
     def __init__(self, step: Step, total_cost: int):
         self.step = step
         self.total_cost = total_cost
@@ -32,6 +26,7 @@ class Tile:
 
 
 class City:
+
     def __init__(self, data: list[str]):
         self.height = len(data)
         self.width = len(data[0])
@@ -47,6 +42,7 @@ class City:
 
 
 class Task17(Task):
+
     def part_one(self):
         city = City(self.data)
         end = Position(city.height - 1, city.width - 1)

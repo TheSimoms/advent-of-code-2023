@@ -1,19 +1,11 @@
 from collections import namedtuple, defaultdict
-from enum import Enum
 from typing import Optional
 
 from task import Task
+from util import Position, Direction
 
 
-Position = namedtuple('Position', ['x', 'y'])
 Beam = namedtuple('Beam', ['start', 'end', 'direction'])
-
-
-class Direction(Enum):
-    RIGHT = (1, 0)
-    LEFT = (-1, 0)
-    DOWN = (0, 1)
-    UP = (0, -1)
 
 
 class Mirror:
@@ -71,11 +63,11 @@ class Grid:
         beams = []
 
         for new_direction in self._new_directions(mirror, direction):
-            if new_direction == Direction.RIGHT:
+            if new_direction == Direction.R:
                 end = mirror.next_x.position if mirror.next_x else Position(self.width - 1, mirror.y)
-            elif new_direction == Direction.LEFT:
+            elif new_direction == Direction.L:
                 end = mirror.previous_x.position if mirror.previous_x else Position(0, mirror.y)
-            elif new_direction == Direction.DOWN:
+            elif new_direction == Direction.D:
                 end = mirror.next_y.position if mirror.next_y else Position(mirror.x, self.height - 1)
             else:
                 end = mirror.previous_y.position if mirror.previous_y else Position(mirror.x, 0)
@@ -94,33 +86,33 @@ class Grid:
     @staticmethod
     def _new_directions(mirror: Mirror, direction: Direction) -> list[Direction]:
         if mirror.symbol == '\\':
-            if direction == Direction.RIGHT:
-                return [Direction.DOWN]
-            elif direction == Direction.LEFT:
-                return [Direction.UP]
-            elif direction == Direction.DOWN:
-                return [Direction.RIGHT]
+            if direction == Direction.R:
+                return [Direction.D]
+            elif direction == Direction.L:
+                return [Direction.U]
+            elif direction == Direction.D:
+                return [Direction.R]
             else:
-                return [Direction.LEFT]
+                return [Direction.L]
         elif mirror.symbol == '/':
-            if direction == Direction.RIGHT:
-                return [Direction.UP]
-            elif direction == Direction.LEFT:
-                return [Direction.DOWN]
-            elif direction == Direction.DOWN:
-                return [Direction.LEFT]
+            if direction == Direction.R:
+                return [Direction.U]
+            elif direction == Direction.L:
+                return [Direction.D]
+            elif direction == Direction.D:
+                return [Direction.L]
             else:
-                return [Direction.RIGHT]
+                return [Direction.R]
         elif mirror.symbol == '|':
-            if direction in [Direction.DOWN, Direction.UP]:
+            if direction in [Direction.D, Direction.U]:
                 return [direction]
             else:
-                return [Direction.DOWN, Direction.UP]
+                return [Direction.D, Direction.U]
         elif mirror.symbol == '-':
-            if direction in [Direction.RIGHT, Direction.LEFT]:
+            if direction in [Direction.R, Direction.L]:
                 return [direction]
             else:
-                return [Direction.RIGHT, Direction.LEFT]
+                return [Direction.R, Direction.L]
         else:
             raise Exception(f'Invalid symbol={mirror.symbol}')
 
@@ -129,7 +121,7 @@ class Task16(Task):
 
     def part_one(self):
         grid = self._parse_input()
-        start_beam = Beam(Position(0, 0), grid.mirrors_row[0][0].position, Direction.RIGHT)
+        start_beam = Beam(Position(0, 0), grid.mirrors_row[0][0].position, Direction.R)
 
         return self.count_energized_tiles(grid, start_beam)
 
@@ -145,7 +137,7 @@ class Task16(Task):
                     Beam(
                         start=Position(0, y),
                         end=mirrors[0].position,
-                        direction=Direction.RIGHT,
+                        direction=Direction.R,
                     )
                 )
 
@@ -153,7 +145,7 @@ class Task16(Task):
                     Beam(
                         start=Position(grid.width - 1, y),
                         end=mirrors[-1].position,
-                        direction=Direction.LEFT,
+                        direction=Direction.L,
                     )
                 )
 
@@ -165,7 +157,7 @@ class Task16(Task):
                     Beam(
                         start=Position(x, 0),
                         end=mirrors[0].position,
-                        direction=Direction.DOWN,
+                        direction=Direction.D,
                     )
                 )
 
@@ -173,7 +165,7 @@ class Task16(Task):
                     Beam(
                         start=Position(x, grid.height - 1),
                         end=mirrors[-1].position,
-                        direction=Direction.UP,
+                        direction=Direction.U,
                     )
                 )
 
