@@ -1,3 +1,4 @@
+import re
 from abc import ABCMeta, abstractmethod
 
 
@@ -21,9 +22,8 @@ class Task(metaclass=ABCMeta):
     def part_two(self):
         pass
 
-    @staticmethod
-    def _read_input(args) -> str:
-        task_number = str(args.task).rjust(2, '0')
+    def _read_input(self, args) -> str:
+        task_number = re.findall(r'([0-9]+)', type(self).__name__)[0].rjust(2, '0')
         filename = f'{task_number}-test' if args.test else task_number
 
         with open(f'data/{filename}.txt', 'r') as file:
