@@ -18,6 +18,7 @@ from task_15 import Task15
 from task_16 import Task16
 from task_17 import Task17
 from task_18 import Task18
+from task_19 import Task19
 
 TASKS = [
     Task01(),
@@ -38,6 +39,7 @@ TASKS = [
     Task16(),
     Task17(),
     Task18(),
+    Task19(),
 ]
 
 if __name__ == '__main__':
